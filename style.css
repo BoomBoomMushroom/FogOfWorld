@@ -1,0 +1,142 @@
+body{
+    font-size: 115%;
+    font-family: monospace;
+    background-color: var(--theme-ui-colors-dark,#17171d);
+}
+
+/* Fullscreen Leaflet Map */
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
+
+/* SVG Mask overlay */
+#svg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1; /* Above map, below any other UI elements */
+}
+
+#accountButton{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin: 10px;
+    background-color: white;
+    color: black;
+    z-index: 2;
+}
+
+/*
+Took it from: https://theme.hackclub.co (primary btn)
+*/
+.css-button{
+    box-sizing:border-box;
+    margin:0;
+    min-width:0;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    display:inline-block;
+    text-align:center;
+    line-height:inherit;
+    -webkit-text-decoration:none;
+    text-decoration:none;
+    font-size:inherit;
+    padding-left:16px;
+    padding-right:16px;
+    padding-top:8px;
+    padding-bottom:8px;
+    color:var(--theme-ui-colors-white,#ffffff);
+    background-color:var(--theme-ui-colors-primary,#ec3750);
+    border:0;
+    border-radius:4px;
+    cursor:pointer;
+    font-family:inherit;
+    font-weight:700;
+    border-radius:99999px;
+    display:-webkit-inline-box;
+    display:-webkit-inline-flex;
+    display:-ms-inline-flexbox;
+    display:inline-flex;
+    -webkit-align-items:center;
+    -webkit-box-align:center;
+    -ms-flex-align:center;
+    align-items:center;
+    -webkit-box-pack:center;
+    -webkit-justify-content:center;
+    -ms-flex-pack:center;
+    justify-content:center;
+    box-shadow:0 4px 8px rgba(0,0,0,0.125);
+    -webkit-letter-spacing:0.009em;
+    -moz-letter-spacing:0.009em;
+    -ms-letter-spacing:0.009em;
+    letter-spacing:0.009em;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-transition:-webkit-transform .125s ease-in-out,box-shadow .125s ease-in-out;
+    -webkit-transition:transform .125s ease-in-out,box-shadow .125s ease-in-out;
+    transition:transform .125s ease-in-out,box-shadow .125s ease-in-out;
+    margin-right:16px;margin-bottom:16px;
+}
+.css-button:focus, .css-button:hover{
+    box-shadow:0 1px 2px rgba(0,0,0,0.0625),0 8px 12px rgba(0,0,0,0.125);
+    -webkit-transform:scale(1.0625);
+    -ms-transform:scale(1.0625);
+    transform:scale(1.0625);
+}
+.css-button svg{
+    margin-left:-4px;
+    margin-right:8px;
+}
+
+/*
+Forms -> Input (https://theme.hackclub.com)
+*/
+.css-input {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    display: block;
+    width: 100%;
+    padding: 8px;
+    appearance: none;
+    font-size: inherit;
+    line-height: inherit;
+    border-radius: 4px;
+    background-color: var(--theme-ui-colors-elevated,#252429);
+    color: var(--theme-ui-colors-text,#ffffff);
+    font-family: inherit;
+    border: 0px;
+}
+
+.css-label {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    width: 100%;
+    color: var(--theme-ui-colors-text,#ffffff);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.375;
+    font-size: 20px;
+}
+
+.css-form {
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    display: grid;
+    gap: 16px;
+    background-color: var(--theme-ui-colors-sunken,#121217);
+    padding: 16px;
+    border-radius: 12px;
+}

@@ -1,0 +1,159 @@
+<head>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <center>
+        <form class="css-form" style="padding: 32px; max-width: 500px">
+            <label class="css-label" for="email">
+                Email
+                <input class="css-input" type="email" id="email" placeholder="Email" />
+            </label>
+            <br>
+            <label class="css-label" for="paddword">
+                Password
+                <input class="css-input" type="password" id="password" placeholder="6+ Character Password" />
+            </label>
+            <br>
+            <button id="signUpButton" class="css-button">Sign Up</button>
+            <button id="logInButton" class="css-button">Log In</button>
+            <button id="logOutButton" class="css-button">Log Out</button>
+        </form>
+    </center>
+</body>
+
+
+
+<!--
+
+Password NEEDS to be at least 6 characters long
+
+-->
+
+<script type="module">
+    // https://supabase.com/docs/reference/javascript/auth-signout
+    
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+    const supabaseUrl = 'https://mlicpopsfugokqdpmutt.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1saWNwb3BzZnVnb2txZHBtdXR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4NDY1MDcsImV4cCI6MjA0NjQyMjUwN30.evamdKmRu8pjo8YOqKbqeEa7aWb-uBXiH3lhbx2FPyM'
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    console.log('Supabase Instance: ', supabase)
+
+    const signUpButton = document.getElementById("signUpButton")
+    const logInButton = document.getElementById("logInButton")
+    const logOutButton = document.getElementById("logOutButton")
+
+    signUpButton.onclick = (event)=>{
+        event.preventDefault();
+        loginOrSignup(false)
+    }
+    logInButton.onclick = (event)=>{
+        event.preventDefault();
+        loginOrSignup(true)
+    }
+
+    let session = await getSession()
+    console.log(session)
+    if(session == null){
+        console.log("Session Expired!! | authflow.html")
+        logOutButton.remove()
+    }
+    else{
+        signUpButton.remove()
+        logInButton.remove()
+        console.log("Valid Session | authflow.html")
+    }
+
+    async function loginOrSignup(doLogIn) {
+        let email = document.getElementById('email').value
+        let password = document.getElementById('password').value
+
+        let data
+        let error
+
+        if(doLogIn == false){
+            const out = await supabase.auth.signUp({
+                email: email,
+                password: password,
+            })
+            data = out["data"]
+            error = out["error"]
+        }
+        else{
+            const out = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            })
+            data = out["data"]
+            error = out["error"]
+        }
+
+        console.log(data)
+        console.log(error)
+
+        if(error == null){
+            window.location.href = "/";
+        }
+        else{
+            alert(error.toString().split('\n')[0])
+        }
+    }
+
+    async function getSession(){
+        const session = await supabase.auth.getSession()
+        return session["data"]["session"]
+    }
+
+    /*
+    async function getLocationPoints(){
+        const session = await getSession()
+        if(session == null){
+            console.error("Not logged in!")
+            return
+        }
+        
+        const out = await supabase
+            .from('Locations')
+            .select()
+        return out["data"]
+    }
+    async function setLocationPoints(pointData){
+        const session = await getSession()
+        if(session == null){
+            console.error("Not logged in!")
+            return
+        }
+        let userId = session["user"]["id"]
+
+        const out = await supabase
+            .from('Locations')
+            .upsert({ user_id: userId, location_data: pointData })
+            .select()
+        
+        return out
+    }
+    */
+
+    logOutButton.onclick = async (event)=>{
+        event.preventDefault();
+
+        const { error } = await supabase.auth.signOut()
+        console.error(error)
+
+        localStorage.clear();
+
+        if(error != null){
+            window.location.href = "/";
+        }
+    }
+
+    anonAccountButton.onclick = async (event)=>{
+        event.preventDefault();
+        const out = await supabase.auth.signInAnonymously()
+
+        console.log(out)
+    }
+
+
+</script>
