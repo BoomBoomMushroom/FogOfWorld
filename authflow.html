@@ -147,13 +147,4 @@ Password NEEDS to be at least 6 characters long
             window.location.href = "/";
         }
     }
-
-    anonAccountButton.onclick = async (event)=>{
-        event.preventDefault();
-        const out = await supabase.auth.signInAnonymously()
-
-        console.log(out)
-    }
-
-
 </script>
